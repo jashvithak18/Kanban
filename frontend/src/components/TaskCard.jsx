@@ -128,6 +128,57 @@ export default function TaskCard({ task, onEdit, onDelete }) {
         </p>
       )}
 
+      {/* Attachments list on card */}
+      {task.attachments && task.attachments.length > 0 && (
+        <div
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '6px',
+            marginTop: '2px'
+          }}
+        >
+          {task.attachments.map((file, idx) => {
+            const isImage = file.type && file.type.startsWith('image/');
+            return (
+              <a
+                key={idx}
+                href={file.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={`Click to view ${file.name}`}
+                className="card-attachment-pill"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  fontSize: '0.7rem',
+                  backgroundColor: 'var(--surface2)',
+                  border: '1px solid var(--border)',
+                  borderRadius: '4px',
+                  padding: '2px 6px',
+                  color: 'var(--text)',
+                  textDecoration: 'none',
+                  maxWidth: '120px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                {isImage ? <span>🖼️</span> : <span>📄</span>}
+                <span style={{
+                  textOverflow: 'ellipsis',
+                  overflow: 'hidden',
+                  whiteSpace: 'nowrap'
+                }}>
+                  {file.name}
+                </span>
+              </a>
+            );
+          })}
+        </div>
+      )}
+
       {/* Badges and Metadata */}
       <div style={{
         display: 'flex',
@@ -192,6 +243,11 @@ export default function TaskCard({ task, onEdit, onDelete }) {
           background-color: #EF4444 !important;
           color: #FFFFFF !important;
           transform: scale(1.1);
+        }
+        .card-attachment-pill:hover {
+          background-color: var(--accent1) !important;
+          color: #FFFFFF !important;
+          border-color: var(--accent1) !important;
         }
       `}</style>
     </div>

@@ -384,8 +384,13 @@ export default function TaskModal({ task, onClose, createTask, updateTask, attac
                 {attachments.map((file, idx) => {
                   const isImage = file.type && file.type.startsWith('image/');
                   return (
-                    <div
+                    <a
                       key={idx}
+                      href={file.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Click to view/download file"
+                      className="attachment-thumbnail"
                       style={{
                         position: 'relative',
                         border: '1px solid var(--border)',
@@ -397,7 +402,10 @@ export default function TaskModal({ task, onClose, createTask, updateTask, attac
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        padding: '4px'
+                        padding: '4px',
+                        cursor: 'pointer',
+                        textDecoration: 'none',
+                        color: 'inherit'
                       }}
                     >
                       {isImage ? (
@@ -421,6 +429,7 @@ export default function TaskModal({ task, onClose, createTask, updateTask, attac
                       <button
                         type="button"
                         onClick={(e) => {
+                          e.preventDefault();
                           e.stopPropagation();
                           handleRemoveAttachment(idx);
                         }}
@@ -439,17 +448,29 @@ export default function TaskModal({ task, onClose, createTask, updateTask, attac
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          lineHeight: 1
+                          lineHeight: 1,
+                          zIndex: 10
                         }}
                       >
                         ×
                       </button>
-                    </div>
+                    </a>
                   );
                 })}
               </div>
             )}
           </div>
+
+          <style>{`
+            .attachment-thumbnail {
+              transition: all 0.2s ease;
+            }
+            .attachment-thumbnail:hover {
+              border-color: var(--accent1) !important;
+              transform: translateY(-2px);
+              box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15) !important;
+            }
+          `}</style>
 
           {/* Form Actions */}
           <div style={{
