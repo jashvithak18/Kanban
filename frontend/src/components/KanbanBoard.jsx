@@ -248,7 +248,7 @@ export default function KanbanBoard() {
         }}
       >
         <h1 style={{
-          fontSize: '3.5rem',
+          fontSize: 'clamp(2.2rem, 8vw, 3.5rem)',
           fontFamily: 'Syne',
           fontWeight: '800',
           backgroundImage: 'linear-gradient(135deg, var(--accent1), var(--accent2))',
@@ -260,7 +260,7 @@ export default function KanbanBoard() {
           Your workflow, live.
         </h1>
         <p style={{
-          fontSize: '1.2rem',
+          fontSize: 'clamp(1rem, 3vw, 1.2rem)',
           color: 'var(--text-muted)',
           maxWidth: '600px',
           marginBottom: '40px',
